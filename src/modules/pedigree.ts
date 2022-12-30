@@ -1,8 +1,8 @@
-const FIX = "pedigree/FIX" as const;
+const FIX_PEDIGREE = "pedigree/FIX_PEDIGREE" as const;
 const SCORE = "pedigree/SCORE" as const;
 
-export const fix = (title: string) => ({
-  type: FIX,
+export const fixPedigree = (title: string) => ({
+  type: FIX_PEDIGREE,
   payload: title,
 });
 
@@ -11,7 +11,7 @@ export const score = (title: string, score: number) => ({
   payload: { title, score },
 });
 
-type PedigreeAction = ReturnType<typeof fix> | ReturnType<typeof score>;
+type PedigreeAction = ReturnType<typeof fixPedigree> | ReturnType<typeof score>;
 
 export type PedigreeState = {
   title: string;
@@ -37,7 +37,7 @@ function pedigree(
   action: PedigreeAction
 ): PedigreeArrayState {
   switch (action.type) {
-    case FIX:
+    case FIX_PEDIGREE:
       return state.map((item) =>
         item.title === action.payload && item.fixed
           ? { ...item }
