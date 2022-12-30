@@ -1,6 +1,6 @@
 import PedigreeItem from "components/PedigreeItem";
 import { RootState } from "modules";
-import { fixPedigree, score } from "modules/pedigree";
+import pedigree, { fixPedigree, score } from "modules/pedigree";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PedigreeModel } from "../models/PedigreeModel";
@@ -19,12 +19,20 @@ function PedigreeContainer() {
 
   useEffect(() => {
     pedigreeModel.basicPedigree.evaluateBasicDice(diceArray, pedigreeArray);
-    dispatch(
-      score(pedigreeArray[0].title, pedigreeModel.basicPedigree.scores[0])
-    );
+    pedigreeArray.map((pedigree, index) => {
+      dispatch(
+        score(pedigree.title, pedigreeModel.basicPedigree.scores[index])
+      );
+    });
   }, [diceArray]);
 
-  return <PedigreeItem pedigree={pedigreeArray[0]} onFix={onFix} />;
+  return (
+    <ul>
+      {pedigreeArray.map((pedigree) => (
+        <PedigreeItem pedigree={pedigree} onFix={onFix} key={pedigree.title} />
+      ))}
+    </ul>
+  );
 }
 
 export default PedigreeContainer;

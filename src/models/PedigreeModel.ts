@@ -27,7 +27,7 @@ export class BasicPedigree {
   private _scores: Array<number>;
 
   constructor() {
-    this._scores = new Array<number>(5).fill(0);
+    this._scores = new Array<number>(6).fill(0);
   }
 
   /**
@@ -37,7 +37,7 @@ export class BasicPedigree {
     diceArray: DicesState,
     pedigreeArray: PedigreeArrayState
   ): void {
-    let tempScores = new Array<number>(5).fill(0);
+    let tempScores = new Array<number>(6).fill(0);
     diceArray.map((dice) => {
       tempScores[dice.eyes - 1] += dice.eyes;
     });

@@ -29,8 +29,24 @@ const initialPedigreeState: PedigreeState = {
 
 const initialPedigreeArrayState: PedigreeArrayState = [];
 
-// TODO initialize array
-initialPedigreeArrayState.push({ ...initialPedigreeState, title: "Aces" });
+const pedigreeNames = [
+  "Aces",
+  "Deuces",
+  "Threes",
+  "Fours",
+  "Fives",
+  "Sixes",
+  "Choice",
+  "FourOfAKind",
+  "FullHouse",
+  "SmallStraight",
+  "LargeStraight",
+  "Yacht",
+];
+
+pedigreeNames.forEach((title) => {
+  initialPedigreeArrayState.push({ ...initialPedigreeState, title: title });
+});
 
 function pedigree(
   state: PedigreeArrayState = initialPedigreeArrayState,
@@ -39,9 +55,11 @@ function pedigree(
   switch (action.type) {
     case FIX_PEDIGREE:
       return state.map((item) =>
-        item.title === action.payload && item.fixed
-          ? { ...item }
-          : { ...item, fixed: true }
+        item.title === action.payload
+          ? item.fixed
+            ? { ...item }
+            : { ...item, fixed: true }
+          : { ...item }
       );
     case SCORE:
       return state.map((item) =>
