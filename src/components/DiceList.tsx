@@ -11,7 +11,7 @@ function DiceList({ dices, onFix }: DiceListProps) {
   return (
     <ul>
       {dices.map((dice) => (
-        <DiceItem onFix={onFix} dice={dice} />
+        <DiceItem onFix={onFix} dice={dice} key={dice.id} />
       ))}
     </ul>
   );

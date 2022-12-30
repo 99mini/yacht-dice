@@ -1,4 +1,3 @@
-import DiceItem from "components/DiceItem";
 import DiceList from "components/DiceList";
 import RollDiceBtn from "components/RollDiceBtn";
 import { RootState } from "modules";

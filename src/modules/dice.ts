@@ -29,7 +29,7 @@ export type Dice = {
   fixed: boolean;
 };
 
-export type DiceState = Dice[];
+export type DicesState = Dice[];
 
 const initialDiceState: Dice = {
   id: 0,
@@ -37,21 +37,24 @@ const initialDiceState: Dice = {
   fixed: false,
 };
 
-const initialState: DiceState = [];
+const initialDicesState: DicesState = [];
 
 for (let index = 0; index < 5; index++) {
   let newDice: Dice = {
     ...initialDiceState,
     id: index,
   };
-  initialState.push(newDice);
+  initialDicesState.push(newDice);
 }
 
 // 초기상태를 선언합니다.
 // 리듀서를 작성합니다.
 // 리듀서에서는 state 와 함수의 반환값이 일치하도록 작성하세요.
 // 액션에서는 우리가 방금 만든 DiceAction 을 타입으로 설정합니다.
-function dice(state: DiceState = initialState, action: DiceAction): DiceState {
+function dice(
+  state: DicesState = initialDicesState,
+  action: DiceAction
+): DicesState {
   switch (action.type) {
     case ROLL: // case 라고 입력하고 Ctrl + Space 를 누르면 어떤 종류의 action.type들이 있는지 확인 할 수 있습니다.
       return state.map((dice) =>

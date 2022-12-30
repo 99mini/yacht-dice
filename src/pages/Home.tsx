@@ -1,12 +1,11 @@
-import Pedigree from "components/Pedigree";
 import DiceContainer from "containers/DiceContainer";
+import PedigreeContainer from "containers/PedigreeContainer";
 
 function Home() {
   return (
     <div>
       <DiceContainer></DiceContainer>
-
-      <Pedigree title="Aces" score={15} />
+      <PedigreeContainer />
     </div>
   );
 }
