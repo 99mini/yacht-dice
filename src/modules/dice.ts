@@ -40,10 +40,11 @@ const initialDiceState: Dice = {
 const initialDicesState: DicesState = [];
 
 for (let index = 0; index < 5; index++) {
-  let newDice: Dice = {
+  const newDice: Dice = {
     ...initialDiceState,
     id: index,
   };
+
   initialDicesState.push(newDice);
 }
 

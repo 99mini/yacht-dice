@@ -1,6 +1,6 @@
 import PedigreeItem from "components/PedigreeItem";
 import { RootState } from "modules";
-import pedigree, { fixPedigree, score } from "modules/pedigree";
+import { fixPedigree, PedigreeState, score } from "modules/pedigree";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PedigreeModel } from "../models/PedigreeModel";
@@ -11,18 +11,34 @@ function PedigreeContainer() {
 
   const dispatch = useDispatch();
 
-  const pedigreeModel = PedigreeModel.getPedigreeModel();
+  const pedigreeModel = new PedigreeModel();
 
   const onFix = (title: string) => {
     dispatch(fixPedigree(title));
   };
 
+  function _isFixed(pedigree: PedigreeState): boolean {
+    if (pedigree.fixed) return true;
+    return false;
+  }
+
   useEffect(() => {
-    pedigreeModel.basicPedigree.evaluateBasicDice(diceArray, pedigreeArray);
+    pedigreeModel.basicPedigree.evaluateBasicDice(diceArray);
     pedigreeArray.map((pedigree, index) => {
-      dispatch(
-        score(pedigree.title, pedigreeModel.basicPedigree.scores[index])
-      );
+      if (!_isFixed(pedigree)) {
+        dispatch(
+          score(pedigree.title, pedigreeModel.basicPedigree.scores[index])
+        );
+
+        pedigreeModel.specialPedigree.setScore(diceArray, pedigree.title);
+
+        dispatch(
+          score(
+            pedigree.title,
+            pedigreeModel.specialPedigree.getScore(pedigree.title)
+          )
+        );
+      }
     });
   }, [diceArray]);
 
