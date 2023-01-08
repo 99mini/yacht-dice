@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
 import dice from "./dice";
 import pedigree from "./pedigree";
+import scoreBorad from "./scoreBoard";
 
 const rootReducer = combineReducers({
   dice,
   pedigree,
+  scoreBorad,
 });
 
 // 루트 리듀서를 내보내주세요.

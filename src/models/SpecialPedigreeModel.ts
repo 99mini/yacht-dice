@@ -8,6 +8,7 @@ export class SpecialPedigreeModel {
   private _smallStraight: number;
   private _largeStraight: number;
   private _yacht: number;
+  private _totalScore: number;
 
   constructor() {
     this._choice = 0;
@@ -16,6 +17,7 @@ export class SpecialPedigreeModel {
     this._smallStraight = 0;
     this._largeStraight = 0;
     this._yacht = 0;
+    this._totalScore = 0;
   }
 
   /**
@@ -39,6 +41,19 @@ export class SpecialPedigreeModel {
   ): boolean {
     const diceEyesArray: Array<number> = diceArray.map((dice) => dice.eyes);
     return answerArray.every((value) => diceEyesArray.includes(value));
+  }
+
+  /**
+   * setTotalScore
+   */
+  public setTotalScore(): void {
+    this._totalScore =
+      this._choice +
+      this._fourOfAKind +
+      this._fullHouse +
+      this._largeStraight +
+      this._smallStraight +
+      this._yacht;
   }
 
   /**
@@ -115,8 +130,8 @@ export class SpecialPedigreeModel {
     ];
 
     largeStraightArray.reduce(
-      (curr, largeStraight) =>
-        curr || this.isContainAllDices(diceArray, largeStraight),
+      (acc, largeStraight) =>
+        acc || this.isContainAllDices(diceArray, largeStraight),
       false
     )
       ? (result = 30)
@@ -146,8 +161,8 @@ export class SpecialPedigreeModel {
     const smallStraightArray = _makeSmallStraightArray();
 
     smallStraightArray.reduce(
-      (curr, smallStraight) =>
-        curr || this.isContainAllDices(diceArray, smallStraight),
+      (acc, smallStraight) =>
+        acc || this.isContainAllDices(diceArray, smallStraight),
       false
     )
       ? (result = 15)
@@ -207,5 +222,9 @@ export class SpecialPedigreeModel {
   }
   public get yacht(): number {
     return this._yacht;
+  }
+
+  public get totalScore(): number {
+    return this._totalScore;
   }
 }
